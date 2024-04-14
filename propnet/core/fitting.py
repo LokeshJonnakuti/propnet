@@ -29,11 +29,11 @@ def aggregate_quantities(quantities, model_score_dict=None):
 
     """
     symbol = next(iter(quantities)).symbol
-    if not all([q.symbol == symbol for q in quantities]):
+    if not all(q.symbol == symbol for q in quantities):
         raise ValueError("Quantities passed to aggregate must be same symbol")
     weights = [get_weight(q, model_score_dict) for q in quantities]
     result_value = sum(
-        [w * q.value for w, q in zip(weights, quantities)]) / sum(weights)
+        w * q.value for w, q in zip(weights, quantities)) / sum(weights)
     return QuantityFactory.create_quantity(symbol, result_value)
 
 

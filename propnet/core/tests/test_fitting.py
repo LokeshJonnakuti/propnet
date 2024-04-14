@@ -32,7 +32,7 @@ class FittingTests(unittest.TestCase):
         mats = [Material([QuantityFactory.create_quantity("band_gap", n)]) for n in range(1, 5)]
         benchmarks = [{"band_gap": 1.1*n} for n in range(1, 5)]
         err = get_sse(mats, benchmarks)
-        test_val = sum([0.01*n**2 for n in range(1, 5)])
+        test_val = sum(0.01*n**2 for n in range(1, 5))
         self.assertAlmostEqual(err, test_val)
         # Big dataset
         err = get_sse(self.evaluated, self.benchmarks)

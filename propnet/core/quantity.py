@@ -532,7 +532,7 @@ class NumQuantity(BaseQuantity):
         Returns: True if this_dtype is a sub-dtype of the acceptable dtypes.
 
         """
-        return any([np.issubdtype(this_dtype, dt) for dt in NumQuantity._ACCEPTABLE_DTYPES])
+        return any(np.issubdtype(this_dtype, dt) for dt in NumQuantity._ACCEPTABLE_DTYPES)
 
     def to(self, units):
         """
@@ -588,7 +588,7 @@ class NumQuantity(BaseQuantity):
 
         # Explicit formulas for mean / standard dev for pint support
         new_value = sum(vals) / len(vals)
-        std_dev = (sum([(v - new_value) ** 2 for v in vals]) / len(vals)) ** (1 / 2)
+        std_dev = (sum((v - new_value) ** 2 for v in vals) / len(vals)) ** (1 / 2)
 
         # Accumulate provenance and tags for new quantities
         new_tags = set()
@@ -654,9 +654,9 @@ class NumQuantity(BaseQuantity):
             ureg_quantities = [v for v in l if isinstance(v, ureg.Quantity)]
             regular_data = [v for v in l if not isinstance(v, (list, np.ndarray))]
 
-            regular_data_is_type = all([isinstance(v, NumQuantity._ACCEPTABLE_TYPES) and not
+            regular_data_is_type = all(isinstance(v, NumQuantity._ACCEPTABLE_TYPES) and not
                                         isinstance(v, NumQuantity._UNACCEPTABLE_TYPES)
-                                        for v in regular_data])
+                                        for v in regular_data)
             # If nested_lists is empty, all() returns true automatically
             nested_lists_is_type = all(recursive_list_type_check(v) for v in nested_lists)
             np_arrays_is_type = all(NumQuantity._is_acceptable_dtype(v.dtype)

@@ -864,7 +864,7 @@ class EquationModel(Model, MSONable):
 
     @property
     def connections(self):
-        if not all(['_lambdas' in connection.keys() for connection in self._connections]):
+        if not all('_lambdas' in connection.keys() for connection in self._connections):
             self._generate_lambdas()
         return self._connections
 
@@ -933,8 +933,8 @@ class EquationModel(Model, MSONable):
                     # Scrub nan values and take max
                     if isinstance(output_vals, list):
                         try:
-                            output_val = max([v for v in output_vals
-                                              if not isinstance(v, complex)])
+                            output_val = max(v for v in output_vals
+                                              if not isinstance(v, complex))
                         except ValueError:
                             raise ValueError("No real roots found for model {}".format(self.name))
                     else:
