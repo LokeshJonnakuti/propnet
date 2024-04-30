@@ -1012,7 +1012,7 @@ class Graph(object):
         # Evaluate material's sub-materials
         evaluated_materials = list()
         for m in material.materials:
-            logger.debug("Evaluating sub-material: " + str(id(m)))
+            logger.debug("Evaluating sub-material: %s", str(id(m)))
             if isinstance(m, CompositeMaterial):
                 evaluated_materials.append(self.evaluate_composite(m, allow_model_failure=allow_model_failure,
                                                                    timeout=timeout))
@@ -1049,7 +1049,7 @@ class Graph(object):
 
             for property_input_sets in model.evaluation_list:
 
-                logger.debug("\t\tGenerating input sets for: " + str(property_input_sets))
+                logger.debug("\t\tGenerating input sets for: %s", str(property_input_sets))
 
                 # Create a quantity pool from the appropriate materials.
                 # Modify inputs for use in generate_input_sets
@@ -1073,7 +1073,7 @@ class Graph(object):
 
                 for input_set in input_sets:
 
-                    logger.debug("\t\t\tEvaluating input set: " + str(input_set))
+                    logger.debug("\t\t\tEvaluating input set: %s", str(input_set))
 
                     # Check if input_set can be evaluated -- input_set must pass the necessary model constraints
                     if not model.check_constraints(input_set):
@@ -1099,7 +1099,7 @@ class Graph(object):
                                 "Symbol type {} not found".format(symbol))
                         q = QuantityFactory.create_quantity(st, quantity)
                         to_return._quantities_by_symbol[st].add(q)
-                        logger.debug("\t\t\tNew output: " + str(q))
+                        logger.debug("\t\t\tNew output: %s", str(q))
 
         # Evaluate the CompositeMaterial's quantities and return the result.
         mappings = self.evaluate(to_return)._quantities_by_symbol
