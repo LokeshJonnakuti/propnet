@@ -916,7 +916,7 @@ class Graph(object):
         try:
             with Timer(model.name):
                 with Timeout(seconds=timeout,
-                             error_message=f"Evaluation took longer than specified timeout"):
+                             error_message="Evaluation took longer than specified timeout"):
                     result = model.evaluate(input_dict,
                                             allow_failure=allow_failure)
         except TimeoutError:
